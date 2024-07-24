@@ -16,10 +16,10 @@ const errorMiddleware = (err, req, res, next) => {
     err.statusCode = 400;
   }
 
-    const response = {
-        success: false,
-        message: err.message,
-    };
+  const response = {
+    success: false,
+    message: err.message,
+  };
 
   if (envMode === "DEVELOPMENT") {
     response.error = err;

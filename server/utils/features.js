@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
-// import { v4 as uuid } from "uuid";
-// import { v2 as cloudinary } from "cloudinary";
-// import { getBase64, getSockets } from "../lib/helper.js";
+import { v4 as uuid } from "uuid";
+import { v2 as cloudinary } from "cloudinary";
+import { getBase64, getSockets } from "../lib/helper.js";
 
 const cookieOptions = {
   maxAge: 15 * 24 * 60 * 60 * 1000,
@@ -16,15 +16,12 @@ const connectDB = (uri) => {
     .connect(uri, { dbName: "Chattu" })
     .then((data) => console.log(`Connected to DB: ${data.connection.host}`))
     .catch((err) => {
-      console.error("Error connecting to DB:", err);
       throw err;
     });
 };
 
 const sendToken = (res, user, code, message) => {
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-
-  console.log(token)
 
   return res.status(code).cookie("chattu-token", token, cookieOptions).json({
     success: true,
@@ -34,10 +31,9 @@ const sendToken = (res, user, code, message) => {
 };
 
 const emitEvent = (req, event, users, data) => {
-  // const io = req.app.get("io");
-  // const usersSocket = getSockets(users);
-  // io.to(usersSocket).emit(event, data);
-  console.log("Emmiting Event", event)
+  const io = req.app.get("io");
+  const usersSocket = getSockets(users);
+  io.to(usersSocket).emit(event, data);
 };
 
 const uploadFilesToCloudinary = async (files = []) => {

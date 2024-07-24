@@ -45,37 +45,25 @@ app.put(
   removeMember
 );
 
-app.delete(
-    "/leave/:id", 
-    chatIdValidator(), 
-    validateHandler, 
-    leaveGroup
-);
+app.delete("/leave/:id", chatIdValidator(), validateHandler, leaveGroup);
 
 // Send Attachments
 app.post(
-    "/message",
-    attachmentsMulter,
-    sendAttachmentsValidator(),
-    validateHandler,
-    sendAttachments
+  "/message",
+  attachmentsMulter,
+  sendAttachmentsValidator(),
+  validateHandler,
+  sendAttachments
 );
 
 // Get Messages
-app.get(
-    "/message/:id", 
-    chatIdValidator(), 
-    validateHandler, 
-    getMessages
-);
+app.get("/message/:id", chatIdValidator(), validateHandler, getMessages);
 
-//  Get Chat Details, rename,delete
+// Get Chat Details, rename,delete
 app
   .route("/:id")
   .get(chatIdValidator(), validateHandler, getChatDetails)
   .put(renameValidator(), validateHandler, renameGroup)
   .delete(chatIdValidator(), validateHandler, deleteChat);
-
-
 
 export default app;
