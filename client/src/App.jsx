@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectRoute from "./components/auth/ProtectRoute";
 import { LayoutLoader } from "./components/layout/Loaders";
@@ -22,11 +22,13 @@ const ChatManagement = lazy(() => import("./pages/admin/ChatManagement"));
 const MessagesManagement = lazy(() =>
   import("./pages/admin/MessageManagement")
 );
+//console.log("Server URL:", server); // Check the console for the correct value
 
 const App = () => {
   const { user, loader } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
+// console.log("Server URL:", server); // Check the console for the correct value
 
   useEffect(() => {
     axios

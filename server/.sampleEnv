@@ -1,6 +1,6 @@
 
 
-MONGO_URI = mongodb+srv://chattu:Password69@cluster0.loejygs.mongodb.net/
+MONGO_URI = mongodb://localhost:27017
 
 JWT_SECRET=djgjkdshbgjkhfnjksdfhbnsjkdfsdhjfk
 
